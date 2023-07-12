@@ -25,19 +25,28 @@ public class PhoneBookTests {
         int result = phoneBook.add(name, number);
         Assertions.assertEquals(expected, result);
     }
+
     @Test
-    public void addTestNameNull(){
+    public void addTestNameNull() {
         String name = null, number = "123456";
         Class<IllegalArgumentException> expected = IllegalArgumentException.class;
-        Assertions.assertThrows(expected,() -> phoneBook.add(name ,number));
+        Assertions.assertThrows(expected, () -> phoneBook.add(name, number));
     }
 
     @Test
-    public void addTestNumberNull(){
+    public void addTestNumberNull() {
         String name = "name", number = null;
         Class<IllegalArgumentException> expected = IllegalArgumentException.class;
-        Assertions.assertThrows(expected, () -> phoneBook.add(name,number));
+        Assertions.assertThrows(expected, () -> phoneBook.add(name, number));
     }
 
-
+    @Test
+    public void addTestSameName() {
+        String name = "name", number = "123456";
+        Class<IllegalArgumentException> expected = IllegalArgumentException.class;
+        Assertions.assertThrows(expected, () -> {
+            phoneBook.add(name, number);
+            phoneBook.add(name, number);
+        });
+    }
 }
