@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 
 public class PhoneBook {
@@ -25,6 +26,16 @@ public class PhoneBook {
     }
 
     public String findByNumber(String number){
-       return null;
+        Optional<String> result = phoneBook.entrySet()
+                .stream()
+                .filter(entry -> number.equals(entry.getValue()))
+                .map(Map.Entry::getKey)
+                .findFirst();
+
+        if (result.isPresent()) {
+            return result.get();
+        } else {
+            throw new NullPointerException("Нет такого номера");
+        }
     }
 }
