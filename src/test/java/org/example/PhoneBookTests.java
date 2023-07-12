@@ -49,4 +49,21 @@ public class PhoneBookTests {
             phoneBook.add(name, number);
         });
     }
+
+    @Test
+    public void findByNumberNoyNull(){
+        String name = "name", number = "123455";
+        phoneBook.add(name, number);
+        String expected = "name";
+        String result = phoneBook.findByNumber(number);
+        Assertions.assertEquals(expected, result);
+    }
+
+    @Test
+    public void findByNumberNull(){
+        String name = "name", number1 = "123455", number2 = "123444";
+        phoneBook.add(name, number1);
+        Class<NullPointerException> expected = NullPointerException.class;
+        Assertions.assertThrows(expected,() -> phoneBook.findByNumber(number1));
+    }
 }
