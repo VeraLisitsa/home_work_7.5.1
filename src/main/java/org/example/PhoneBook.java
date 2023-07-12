@@ -6,8 +6,8 @@ import java.util.TreeMap;
 
 public class PhoneBook {
 
-    public static int countContacts = 0;
-    public static Map<String, String> phoneBook = new TreeMap<>();
+    private static int countContacts = 0;
+    private static Map<String, String> phoneBook = new TreeMap<>();
 
     public int add(String name, String phoneNumber){
         if(name == null){
@@ -37,5 +37,9 @@ public class PhoneBook {
         } else {
             throw new NullPointerException("Нет такого номера");
         }
+    }
+
+    public String findByName(String name){
+        return null;
     }
 }

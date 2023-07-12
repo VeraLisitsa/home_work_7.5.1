@@ -66,4 +66,22 @@ public class PhoneBookTests {
         Class<NullPointerException> expected = NullPointerException.class;
         Assertions.assertThrows(expected,() -> phoneBook.findByNumber(number2));
     }
+    @Test
+    public void findByNameNotNull(){
+        String name = "name3", number = "111111";
+        phoneBook.add(name, number);
+        String expected = "111111";
+        String result = phoneBook.findByName(name);
+        Assertions.assertEquals(expected, result);
+    }
+
+    @Test
+    public void findByNameNull(){
+        String name1 = "name4", number1 = "222222", name2 = "name5";
+        phoneBook.add(name1, number1);
+        Class<NullPointerException> expected = NullPointerException.class;
+        Assertions.assertThrows(expected,() -> phoneBook.findByName(name2));
+    }
+
+
 }
