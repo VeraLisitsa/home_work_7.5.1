@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 public class PhoneBookTests {
     PhoneBook phoneBook;
 
@@ -81,6 +84,18 @@ public class PhoneBookTests {
         phoneBook.add(name1, number1);
         Class<NullPointerException> expected = NullPointerException.class;
         Assertions.assertThrows(expected,() -> phoneBook.findByName(name2));
+    }
+
+    @Test
+    public void printAllTest(){
+        phoneBook.add("name4", "222222");
+        phoneBook.add("name3", "333333");
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+        phoneBook.printAll();
+        String result = outputStream.toString().replace("\r\n", "");
+        String expected = "name3-333333name4-222222";
+        Assertions.assertEquals(expected, result);
     }
 
 
