@@ -1,9 +1,6 @@
 package org.example;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -14,38 +11,40 @@ public class PhoneBookTests {
     @BeforeEach
     public void beforeEach() {
         phoneBook = new PhoneBook();
+        phoneBook.add("name", "111111");
     }
 
     @AfterEach
-    public void afterEach() {
+    public void afterAll() {
         phoneBook = null;
+
     }
 
     @Test
     public void addTestNotNull() {
-        String name = "name", number = "123456";
-        int expected = 1;
+        String name = "name1", number = "222222";
+        int expected = 2;
         int result = phoneBook.add(name, number);
         Assertions.assertEquals(expected, result);
     }
 
     @Test
     public void addTestNameNull() {
-        String name = null, number = "123456";
+        String name = null, number = "333333";
         Class<IllegalArgumentException> expected = IllegalArgumentException.class;
         Assertions.assertThrows(expected, () -> phoneBook.add(name, number));
     }
 
     @Test
     public void addTestNumberNull() {
-        String name = "name", number = null;
+        String name = "name2", number = null;
         Class<IllegalArgumentException> expected = IllegalArgumentException.class;
         Assertions.assertThrows(expected, () -> phoneBook.add(name, number));
     }
 
     @Test
     public void addTestSameName() {
-        String name = "name", number = "123456";
+        String name = "name", number = "444444";
         Class<IllegalArgumentException> expected = IllegalArgumentException.class;
         Assertions.assertThrows(expected, () -> {
             phoneBook.add(name, number);
@@ -54,47 +53,45 @@ public class PhoneBookTests {
     }
 
     @Test
-    public void findByNumberNotNull(){
-        String name = "name1", number = "123455";
-        phoneBook.add(name, number);
-        String expected = "name1";
+    public void findByNumberNotNull() {
+        String number = "111111";
+        String expected = "name";
         String result = phoneBook.findByNumber(number);
         Assertions.assertEquals(expected, result);
     }
 
     @Test
-    public void findByNumberNull(){
-        String name = "name2", number1 = "123455", number2 = "123444";
-        phoneBook.add(name, number1);
+    public void findByNumberNull() {
+        String number = "555555";
         Class<NullPointerException> expected = NullPointerException.class;
-        Assertions.assertThrows(expected,() -> phoneBook.findByNumber(number2));
+        Assertions.assertThrows(expected, () -> phoneBook.findByNumber(number));
     }
+
     @Test
-    public void findByNameNotNull(){
-        String name = "name3", number = "111111";
-        phoneBook.add(name, number);
+    public void findByNameNotNull() {
+        String name = "name";
         String expected = "111111";
         String result = phoneBook.findByName(name);
         Assertions.assertEquals(expected, result);
     }
 
     @Test
-    public void findByNameNull(){
-        String name1 = "name4", number1 = "222222", name2 = "name5";
-        phoneBook.add(name1, number1);
+    public void findByNameNull() {
+        String name = "name3";
         Class<NullPointerException> expected = NullPointerException.class;
-        Assertions.assertThrows(expected,() -> phoneBook.findByName(name2));
+        Assertions.assertThrows(expected, () -> phoneBook.findByName(name));
     }
 
     @Test
-    public void printAllTest(){
-        phoneBook.add("name4", "222222");
-        phoneBook.add("name3", "333333");
+    public void printAllTest() {
+        PhoneBook phoneBook1 = new PhoneBook();
+        phoneBook1.add("bName", "111111");
+        phoneBook1.add("aName", "222222");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
-        phoneBook.printAll();
+        phoneBook1.printAll();
         String result = outputStream.toString().replace("\r\n", "");
-        String expected = "name3-333333name4-222222";
+        String expected = "aName-222222bName-111111";
         Assertions.assertEquals(expected, result);
     }
 

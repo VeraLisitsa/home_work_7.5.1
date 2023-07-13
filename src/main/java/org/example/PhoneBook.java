@@ -6,8 +6,8 @@ import java.util.TreeMap;
 
 public class PhoneBook {
 
-    private static int countContacts = 0;
-    private static Map<String, String> phoneBook = new TreeMap<>();
+    private int countContacts = 0;
+    private Map<String, String> phoneBook = new TreeMap<>();
 
     public int add(String name, String phoneNumber) {
         if (name == null) {
@@ -47,5 +47,8 @@ public class PhoneBook {
     }
 
     public void printAll() {
+        for (Map.Entry<String, String> e : phoneBook.entrySet()) {
+            System.out.println(e.getKey() + "-" + e.getValue());
+        }
     }
 }
